@@ -1,145 +1,569 @@
+/*
+  Breakpoints (desktop first)
+  90em    1440px  small desktops: tighter type and spacing
+  75em    1200px  laptops/tablets: sidebar collapses to a rail, hero photo hidden
+  62.5em  1000px  tablets: compact cards, 2-col portfolio
+  38.75em  620px  phones: smaller shapes, every grid stays 2 columns
+*/
 
+/* ___________________________ <= 1440px ___________________________ */
 @media (max-width: 90em) {
-    .aside-content{
-        display: none;
-    }
-    .aside-page-num{
-        display: none;
-    }
-    .aside{
-        min-width: 10rem;
-    }
-    .main{
-        width: calc(100vw - 10rem);
-    }
-    .services-cards{
-        gap: var(--space-6);
-    }
-    .service-card{
-        padding: var(--space-8);
-    }
+  :root {
+    font-size: 56.25%; /* 9px */
+    --aside-w: 30rem;
+  }
+  /* text gets a little more room than the photo, and the name is sized to
+     its own column (cqi) instead of the screen, so it never runs into it */
+  .section-hero {
+    grid-template-columns: 1.15fr 1fr;
+  }
+  .hero-text-box {
+    container-type: inline-size;
+    padding: var(--space-16) var(--space-10) var(--space-16) var(--space-12);
+  }
+  .hero-name {
+    font-size: min(19cqi, 9.6rem);
+  }
+  .section-services {
+    gap: var(--space-12);
+  }
+  .services-cards {
+    gap: var(--space-6);
+  }
+  .service-card {
+    padding: var(--space-10) var(--space-8);
+  }
+  .service-card-icon {
+    font-size: var(--text-8xl);
+    margin-bottom: var(--space-8);
+  }
+  .skill-circle,
+  .skill-circle::before {
+    width: 13rem;
+    height: 13rem;
+  }
+  .skill-circle {
+    padding: 2.6rem;
+  }
+  .progress-circle {
+    font-size: var(--text-6xl);
+  }
 }
-@media (max-width: 75em){
 
-    .section-hero{
-        grid-template-columns: 1fr;
-        min-height: auto;
-    }
-    .hero-img-box{
-        order: -1;
-        width: 22rem;
-        height: 22rem;
-        margin: var(--space-14) auto 0;
-        border-radius: 50%;
-        border: 4px solid var(--surface);
-    }
-    .hero-text-box{
-        align-items: center;
-        text-align: center;
-        padding: var(--space-10) var(--space-12) var(--space-16);
-    }
-    .hero-description{
-        padding-left: 0;
-        border-left: none;
-    }
-    .hero-links-list{
-        justify-content: center;
-    }
-    .section-resume{
-        grid-template-columns: 1fr;
-    }
-    .resume-cover-letter{
-        max-width: none;   /* remove any max-limits */
-    }
-    .resume-cover-letter-img-box{
-        width: 30%;
-        margin: 0 auto;
-    }
-    .skill-row-1{
-        display: grid;
-        grid-template-columns: repeat(2 , 1fr);
-    }
-    .skill-row-2-box{
-        min-width: 25rem;
-    }
-    .skill{
-        align-items: start;
-        flex-flow: column-reverse;
-    }
-    .portfolio-gallary{
-        grid-template-columns: 1fr 1fr;
-    }
-    .section-contact{
-        gap: var(--space-10);
-    }
-    .resume-cover-letter-img {
-        transform: scale(2);
-    }
+/* ___________________________ <= 1200px ___________________________ */
+@media (max-width: 75em) {
+  :root {
+    font-size: 50%; /* 8px */
+    --rail-w: 9rem;
+  }
+
+  /* Sidebar becomes a slim dark rail with a vertical page counter */
+  .layout {
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  }
+  .aside {
+    min-width: 0;
+  }
+  .aside-content {
+    display: none;
+  }
+  /* keep the rail's button and counter clear of the links */
+  .nav {
+    width: calc(var(--rail-w) + 30rem);
+    padding-left: calc(var(--rail-w) + var(--space-6));
+  }
+  .nav-button {
+    left: calc((var(--rail-w) - 30px) / 2);
+  }
+  .aside-page-num {
+    flex-direction: column;
+    left: 0;
+    top: 14rem;
+    width: var(--rail-w);
+    padding: 0;
+    gap: var(--space-4);
+  }
+  .aside-curr-page {
+    font-size: var(--text-3xl);
+    transform: translateY(-10px);
+  }
+  .aside-curr-page.visible {
+    transform: translateY(0);
+  }
+  .aside-sep {
+    flex: none;
+    width: 2px;
+    height: 6rem;
+    background-image: linear-gradient(
+      to bottom,
+      var(--accent),
+      var(--border)
+    );
+  }
+
+  /* Hero: photo is desktop only. Without it the text is centred and
+     scales with the hero's width (cqi = % of that width) */
+  .section-hero {
+    grid-template-columns: 1fr;
+    min-height: 100svh;
+    container-type: inline-size;
+  }
+  .hero-img-box {
+    display: none;
+  }
+  .hero-text-box {
+    align-items: center;
+    text-align: center;
+    padding: var(--space-16) 8%;
+  }
+  .hero-welcome {
+    font-size: max(var(--text-xl), 1.8cqi);
+    margin-bottom: var(--space-5);
+  }
+  .hero-name {
+    font-size: 11cqi;
+    line-height: 1.02;
+    margin-bottom: 0.3em; /* clears the descender of the "y" */
+  }
+  /* a left border doesn't suit centred text: short accent line on top */
+  .hero-description {
+    max-width: 46ch;
+    font-size: max(1.7rem, 2cqi);
+    line-height: var(--lh-4xs);
+    padding-left: 0;
+    border-left: none;
+    margin-bottom: var(--space-10);
+  }
+  .hero-description::before {
+    content: "";
+    display: block;
+    width: 5rem;
+    height: 3px;
+    margin: 0 auto var(--space-6);
+    border-radius: 2px;
+    background-color: var(--primary);
+  }
+  .hero-links-list {
+    justify-content: center;
+    font-size: max(var(--text-lg), 1.4cqi);
+  }
+
+  .section-services,
+  .section-resume,
+  .section-contact {
+    gap: var(--space-10);
+  }
+  .services-btn {
+    height: 5.6rem;
+  }
+
+  .resume-experience {
+    --dot: 3rem;
+  }
+  .resume-experience-box-year {
+    min-width: 5rem;
+    margin-right: var(--space-6);
+  }
+  .resume-experience-box-time-line {
+    margin-right: var(--space-8);
+  }
+  /* 8px root makes text-2xl 12px; keep the long reading text at ~13px */
+  .resume-experience-box-paragraph,
+  .resume-cover-letter-paragraph {
+    font-size: 1.65rem;
+  }
+
+  .skill-row-1 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+  .skill-circle,
+  .skill-circle::before {
+    width: 11rem;
+    height: 11rem;
+  }
+  .skill-circle {
+    padding: 2.2rem;
+  }
+  .progress-circle {
+    font-size: var(--text-5xl);
+  }
+  .skill-row-2 {
+    gap: var(--space-10) var(--space-12);
+  }
+  .skill-row-2-box {
+    min-width: 0;
+  }
+  .skill-bar {
+    height: 1.6rem;
+    margin-right: var(--space-8);
+  }
+  .progress-bar {
+    font-size: var(--text-5xl);
+  }
+
+  .contact-paragraph:last-of-type {
+    margin-bottom: var(--space-16);
+  }
+  .contact-form {
+    padding: var(--space-12);
+  }
 }
-@media (max-width: 62.5em){
-    .main{
-        width: 100vw;
-    }
-    .layout{
-        grid-template-columns: 1fr;
-    }
-    .aside{
-        width: 100%;
-        height: 10rem;
-        position: fixed;
-    }
-    .section-hero{
-        padding-top: 10rem;
-    }
-    .section-portfolio{
-        grid-template-columns: repeat(2 , 1fr);
-    }
-    .section-contact{
-        grid-template-columns: 1fr ;
-    }
-    
-    /* .skill-row-2{
-        grid-template-columns: 1fr;
-    }  */
-    .skill-row-2-box{
-        margin: 0 auto;
-    }
-    .section-services{
-        grid-template-columns: 1fr;
-    }
-    .services-btn:first-child,.services-btn:last-child{
-        width: 100%;
-    }
+
+/* ___________________________ <= 1000px ___________________________ */
+@media (max-width: 62.5em) {
+  :root {
+    --rail-w: 7rem;
+  }
+  .container {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+  .section-services,
+  .section-portfolio,
+  .section-resume,
+  .section-skills,
+  .section-contact {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+
+  .section-services {
+    grid-template-columns: 1fr 1fr;
+  }
+  .services-cards {
+    gap: var(--space-5);
+  }
+  .service-card {
+    padding: var(--space-8) var(--space-6);
+  }
+  .service-card-icon {
+    font-size: var(--text-6xl);
+    margin-bottom: var(--space-5);
+  }
+  .service-card-header {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-3);
+  }
+  .service-card-body {
+    font-size: var(--text-xl);
+    line-height: var(--lh-xl);
+  }
+  .service-text-header {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-8);
+  }
+  .services-what {
+    font-size: var(--text-3xl);
+  }
+  .services-why {
+    margin-bottom: var(--space-10);
+  }
+  .services-btn {
+    height: 5rem;
+    font-size: var(--text-xl);
+  }
+
+  .portfolio-header {
+    margin-bottom: var(--space-10);
+  }
+  .portfolio-gallary {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+  .portfolio-description {
+    padding: var(--space-6);
+  }
+  .portfolio-description-header {
+    font-size: var(--text-3xl);
+  }
+  .portfolio-description-feature {
+    font-size: var(--text-xl);
+  }
+
+  .resume-experience-header,
+  .resume-cover-letter-header,
+  .skills-header,
+  .contact-header {
+    margin-bottom: var(--space-10);
+  }
+  /* the timeline needs less width now, so split the section evenly */
+  .section-resume {
+    grid-template-columns: 1fr 1fr;
+  }
+  /* the year moves above its paragraph as a small label, so the text
+     gets the full width beside the line */
+  .resume-experience {
+    --dot: 2.6rem;
+  }
+  .resume-experience-box {
+    display: grid;
+    grid-template-columns: var(--dot) minmax(0, 1fr);
+    grid-template-areas:
+      "line year"
+      "line text";
+    column-gap: var(--space-6);
+  }
+  .resume-experience-box-time-line {
+    grid-area: line;
+    margin-right: 0;
+  }
+  .resume-experience-box-year {
+    grid-area: year;
+    min-width: 0;
+    margin-right: 0;
+    font-size: 1.4rem;
+    letter-spacing: var(--ls-wide-1);
+  }
+  .resume-experience-box:hover .resume-experience-box-year {
+    transform: translateX(var(--space-3));
+  }
+  .resume-experience-box-paragraph {
+    grid-area: text;
+  }
+  .resume-experience-box-paragraph,
+  .resume-cover-letter-paragraph {
+    margin-bottom: var(--space-8);
+  }
+
+  .skill-row-1-box {
+    margin-bottom: var(--space-10);
+  }
+  .skill-circle,
+  .skill-circle::before {
+    width: 9rem;
+    height: 9rem;
+  }
+  .skill-circle {
+    padding: 1.8rem;
+    margin-bottom: var(--space-5);
+  }
+  .progress-circle {
+    font-size: var(--text-4xl);
+  }
+  .skill-title {
+    font-size: var(--text-3xl);
+  }
+  .skill-bar {
+    height: 1.2rem;
+    margin-bottom: var(--space-5);
+  }
+  .progress-bar {
+    font-size: var(--text-4xl);
+  }
+
+  .contact-form {
+    padding: var(--space-10) var(--space-8);
+  }
+  .form-input {
+    margin-bottom: var(--space-10);
+  }
 }
-@media (max-width: 38.75em){
-    .resume-experience-box-year,
-    .resume-experience-box-time-line{
-        display: none;
-    }
-    .grid-2-cols{
-        grid-template-columns: 1fr;
-    }
-    .skill-row-1{
-        grid-template-columns: 1fr;
-    }
-    .section-portfolio{
-        grid-template-columns: 1fr;
-    }
-    .contact-form{
-        padding: var(--space-8);
-    }
-    .hero-text-box{
-        padding: var(--space-8) var(--space-5) var(--space-14);
-    }
-    .hero-img-box{
-        width: 18rem;
-        height: 18rem;
-    }
-    .hero-description{
-        font-size: var(--text-xl);
-    }
-    .portfolio-gallary{
-        grid-template-columns: 1fr;
-    }
-    
+
+/* ___________________________ <= 620px ___________________________ */
+@media (max-width: 38.75em) {
+  :root {
+    --rail-w: 5.6rem;
+  }
+  .nav-button {
+    width: 24px;
+    height: 24px;
+    top: 3rem;
+    left: calc((var(--rail-w) - 24px) / 2);
+  }
+  .nav-button span {
+    height: 3px;
+    margin-bottom: 4.5px;
+  }
+  .nav {
+    width: calc(var(--rail-w) + 26rem);
+    padding: var(--space-10) var(--space-6) var(--space-10)
+      calc(var(--rail-w) + var(--space-5));
+  }
+  .nav-links {
+    margin-top: var(--space-28);
+  }
+  .nav-link a {
+    font-size: var(--text-4xl);
+  }
+  .aside-page-num {
+    top: 11rem;
+    gap: var(--space-3);
+  }
+  .aside-curr-page {
+    font-size: var(--text-2xl);
+  }
+  .aside-max-page {
+    font-size: var(--text-base);
+  }
+  .aside-sep {
+    height: 4rem;
+  }
+
+  /* phones: floor the hero text at readable sizes (13-14px body) */
+  .hero-text-box {
+    padding: var(--space-12) 8%;
+  }
+  .hero-welcome {
+    font-size: 1.4rem;
+    letter-spacing: var(--ls-wide-4);
+  }
+  .hero-name {
+    font-size: 14cqi;
+  }
+  .hero-description {
+    font-size: 1.75rem;
+  }
+  .hero-links-list {
+    font-size: 1.3rem;
+    gap: var(--space-5) var(--space-8);
+  }
+
+  /* Side-by-side text panels get too narrow to read here, so each panel
+     takes the full row while the grids inside them keep two columns */
+  .section-services > *,
+  .section-resume > *,
+  .section-contact > * {
+    grid-column: 1 / -1;
+  }
+
+  .services-cards {
+    gap: var(--space-4);
+  }
+  .service-card {
+    padding: var(--space-6) var(--space-5);
+  }
+  .service-card-icon {
+    font-size: var(--text-5xl);
+  }
+  .service-card-header {
+    font-size: var(--text-2xl);
+  }
+  .service-card-body {
+    font-size: var(--text-lg);
+  }
+  .services-what {
+    font-size: var(--text-2xl);
+  }
+  .services-how,
+  .services-why {
+    font-size: var(--text-xl);
+  }
+  .services-btns {
+    flex-direction: row;
+    gap: var(--space-4);
+  }
+  .services-btn {
+    flex: 1;
+    height: 4.8rem;
+    padding: 0 var(--space-4);
+    font-size: var(--text-base);
+    text-align: center;
+    border-width: 2px;
+  }
+  .services-btns .mrg-bottom-6 {
+    margin-bottom: 0;
+  }
+
+  .portfolio-gallary {
+    gap: var(--space-4);
+  }
+  .portfolio-description {
+    padding: var(--space-4);
+  }
+  .portfolio-description-header {
+    font-size: var(--text-xl);
+  }
+  .portfolio-description-feature {
+    font-size: var(--text-sm);
+  }
+
+  .resume-experience-header,
+  .resume-cover-letter-header,
+  .skills-header,
+  .contact-header,
+  .service-text-header,
+  .portfolio-header {
+    font-size: var(--text-4xl);
+  }
+  .resume-experience {
+    --dot: 2.2rem;
+  }
+  .resume-experience-box {
+    column-gap: var(--space-5);
+  }
+  /* ~14px reading text on phones */
+  .resume-experience-box-paragraph,
+  .resume-cover-letter-paragraph {
+    font-size: 1.7rem;
+  }
+  .resume-cover-letter p:first-of-type {
+    font-size: 1.9rem;
+  }
+  .resume-cover-letter-img-box {
+    width: min(70%, 26rem);
+  }
+
+  .skill-row-1 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .skill-circle,
+  .skill-circle::before {
+    width: 8rem;
+    height: 8rem;
+  }
+  .skill-circle {
+    padding: 1.4rem;
+  }
+  .progress-circle {
+    font-size: var(--text-3xl);
+  }
+  .skill-title {
+    font-size: var(--text-xl);
+  }
+  .skill-row-2 {
+    gap: var(--space-8) var(--space-6);
+  }
+  .skill {
+    flex-direction: column-reverse;
+    align-items: start;
+  }
+  .skill-bar {
+    height: 0.8rem;
+    margin-right: 0;
+    margin-bottom: var(--space-3);
+  }
+  .progress-bar {
+    font-size: var(--text-3xl);
+  }
+
+  .contact-paragraph:first-of-type {
+    font-size: var(--text-2xl);
+  }
+  .contact-paragraph {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-6);
+  }
+  .contact-paragraph:last-of-type {
+    margin-bottom: var(--space-10);
+  }
+  .contact-info {
+    font-size: var(--text-lg);
+    overflow-wrap: anywhere;
+  }
+  .contact-form {
+    padding: var(--space-8) var(--space-6);
+  }
+  .form-input,
+  .form-input::placeholder {
+    font-size: var(--text-xl);
+  }
+  .form-input {
+    border-bottom-width: 2px;
+    margin-bottom: var(--space-8);
+  }
+  .contact-button {
+    padding: var(--space-5);
+  }
 }

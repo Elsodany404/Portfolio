@@ -1,7 +1,6 @@
 const navBtnEl = document.querySelector(".nav-button");
 const navEl = document.querySelector(".nav");
 const navLinksList = document.querySelector(".nav-links");
-const navLinkWrappers = document.querySelectorAll(".nav-link");
 const navLinks = document.querySelectorAll(".nav-link a");
 const sections = document.querySelectorAll("section");
 const currentPageNumEl = document.querySelector(".aside-curr-page");
@@ -14,65 +13,74 @@ const progressBar = [...document.querySelectorAll(".progress-bar")];
 const skillsSection = document.querySelector(".section-skills");
 const heroSection = document.querySelector(".section-hero");
 
-navBtnEl.addEventListener("click", (e) => {
-    const btn = e.target.closest(".nav-button");
-    btn.classList.toggle("close");
-    navEl.classList.toggle("opened");
+const toggleNav = function (open = !navEl.classList.contains("opened")) {
+    navEl.classList.toggle("opened", open);
+    navBtnEl.classList.toggle("close", open);
+    navBtnEl.setAttribute("aria-expanded", open);
+};
+navBtnEl.setAttribute("aria-label", "Toggle navigation");
+navBtnEl.setAttribute("aria-expanded", false);
+navBtnEl.addEventListener("click", () => toggleNav());
+// Esc closes the nav
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") toggleNav(false);
 });
 navLinksList.addEventListener("click", (e) => {
-    e.preventDefault();
     const linkEl = e.target.closest("a");
     if (!linkEl) return;
+    e.preventDefault();
     const id = linkEl.getAttribute("href").replace("#", "");
-    const target = Array.from(sections).find((sec) => sec.id === id);
+    const target = document.getElementById(id);
+    if (!target) return;
+    toggleNav(false);
     target.scrollIntoView({
         behavior: "smooth",
     });
 });
+
+let activeSection = null;
+let pageNumTimer;
 const changeAsideNumber = function (currSection) {
     // Fade out
     currentPageNumEl.classList.remove("visible");
-    // Wait for the CSS transition to finish
-    setTimeout(() => {
+    // a newer change cancels a pending one, so fast scrolling can't
+    // leave a stale number behind
+    clearTimeout(pageNumTimer);
+    pageNumTimer = setTimeout(() => {
         currentPageNumEl.textContent = currSection.dataset.number.padStart(
             2,
             "0"
         );
         // Fade in
         currentPageNumEl.classList.add("visible");
-    }, 300); // match your CSS transition duration
+    }, 300); // matches the CSS transition duration
 };
 const highlightTabs = function (currSection) {
-    // deleting active tabs
-    Array.from(navLinkWrappers).forEach((wrapper) =>
-        wrapper.classList.remove("active")
+    navLinks.forEach((link) =>
+        link
+            .closest(".nav-link")
+            .classList.toggle(
+                "active",
+                link.getAttribute("href") === `#${currSection.id}`
+            )
     );
-    // finding current wrapper
-    const currLink = Array.from(navLinks).find(
-        (currLink) =>
-            currSection.id === currLink.getAttribute("href").replace("#", "")
-    );
-    currLink.closest(".nav-link").classList.add("active");
 };
 
+// The active section is the one crossing the middle of the viewport, so
+// only one section can be active at a time, whichever way you scroll
 const asideEffects = function (entries) {
-    const entry = entries[0];
-    const currSection = entry.target;
-    // Enter
-    if (entry.isIntersecting && !currSection.dataset.inView) {
-        highlightTabs(currSection);
-        changeAsideNumber(currSection);
-        currSection.dataset.inView = "true"; // mark as inside
-    }
-    // Exit
-    if (!entry.isIntersecting && currSection.dataset.inView) {
-        currSection.dataset.inView = ""; // reset mark
-    }
+    // the callback can report several sections at once (always on first load)
+    entries.forEach((entry) => {
+        if (!entry.isIntersecting || entry.target === activeSection) return;
+        activeSection = entry.target;
+        highlightTabs(activeSection);
+        changeAsideNumber(activeSection);
+    });
 };
 const sectionsObserver = new IntersectionObserver(asideEffects, {
     root: null,
-    threshold: 0.1,
-    rootMargin: '20px'
+    threshold: 0,
+    rootMargin: "-50% 0px -50% 0px",
 });
 sections.forEach((sec) => {
     sectionsObserver.observe(sec);

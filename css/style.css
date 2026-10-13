@@ -232,7 +232,7 @@
   padding-top: var(--space-24);
   padding-bottom: var(--space-24);
   gap: var(--space-12);
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 3fr 2fr;
 }
 .resume-experience-header,
 .resume-cover-letter-header {
@@ -241,9 +241,15 @@
   font-weight: var(--fw-800);
   margin-bottom: var(--space-16);
 }
+/* Timeline. Everything is sized from --dot (the circle), so media
+   queries only change --dot. Boxes have no gap between them: the bar
+   runs from one circle down to the next, and the paragraph's bottom
+   margin sets the spacing. */
+.resume-experience {
+  --dot: 3.5rem;
+}
 .resume-experience-box {
   display: flex;
-  margin-bottom: var(--space-6);
 }
 .resume-experience-box:hover .resume-experience-box-paragraph {
   color: var(--text);
@@ -260,31 +266,33 @@
   min-width: 5.5rem;
   font-size: var(--text-2xl);
   font-weight: var(--fw-800);
+  line-height: var(--dot); /* centred on the circle */
   color: var(--primary);
   margin-right: var(--space-10);
+  white-space: nowrap;
   transition: all 0.3s;
 }
 .resume-experience-box-time-line {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-between; */
+  flex-shrink: 0;
   margin-right: var(--space-14);
 }
 .time-line-circle {
   border-radius: 50%;
-  border: 4px solid var(--primary);
-  width: 35px;
-  height: 35px;
+  border: max(2px, calc(var(--dot) * 0.115)) solid var(--primary);
+  width: var(--dot);
+  height: var(--dot);
   flex-shrink: 0;
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-3);
   position: relative;
 }
 .time-line-circle::after {
   content: "";
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 45%;
+  height: 45%;
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -293,8 +301,10 @@
   transition: all 0.3s;
 }
 .time-line-bar {
-  width: 4px;
-  height: 100%;
+  flex: 1;
+  width: max(2px, calc(var(--dot) * 0.09));
+  border-radius: 2px;
+  margin-bottom: var(--space-3);
   background-color: var(--border);
 }
 .resume-experience-box:last-child .time-line-bar {
@@ -302,7 +312,9 @@
 }
 .resume-experience-box-paragraph,
 .resume-cover-letter-paragraph {
+  min-width: 0;
   font-size: var(--text-2xl);
+  line-height: var(--lh-base);
   color: var(--text-muted);
   margin-bottom: var(--space-12);
   font-weight: 450;
@@ -322,6 +334,7 @@
 }
 .resume-cover-letter-img-box {
   display: block;
+  width: min(100%, 32rem);
 }
 .resume-cover-letter-img {
   object-fit: cover;

@@ -77,9 +77,10 @@
   --sand: #efe6db; /* stone wall */
   --ink: #2b2523; /* warm charcoal, never pure black */
   --ink-raised: #38302d;
-  --cream: #f1e9e1;
+  --cream: rgb(241, 233, 225);
   --wine: #8a4545; /* muted blazer wine */
   --rose: #d9a39b; /* wine lightened for dark backgrounds */
+  --rose-vivid: #e57f72; /* crisp accent for small highlights on dark */
 
   /* Semantic tokens (light by default). Sections re-map these below,
      so every component adapts to the band it sits in. */
@@ -92,6 +93,7 @@
   --primary: var(--wine);
   --primary-soft: #e8d5d1;
   --on-primary: var(--paper);
+  --accent: var(--wine); /* small crisp highlights */
   /* ___________________________Spacing___________________________ */
   --space-0: 0; /* 0px */
   --space-1: 0.125rem; /* 2px */
@@ -117,6 +119,9 @@
   --space-48: 20rem; /* 320px */
   --space-56: 24rem; /* 384px */
   --space-64: 28rem; /* 448px */
+  /* ___________________________Layout___________________________ */
+  --aside-w: 35rem; /* full sidebar */
+  --rail-w: 9rem; /* collapsed sidebar (set in query.css) */
 }
 body {
   overflow-x: hidden;
@@ -135,6 +140,7 @@ body {
   --primary: var(--rose);
   --primary-soft: #4a3532;
   --on-primary: var(--ink);
+  --accent: var(--rose-vivid);
 }
 /* Sand band: services, skills (cards sit lighter on top) */
 .section-services,
@@ -247,7 +253,8 @@ strong {
 .nav {
   background-color: var(--surface);
   height: 100%;
-  width: 35rem;
+  /* match the sidebar column (2fr of 9) so no dark strip shows beside it */
+  width: max(var(--aside-w), 100vw * 2 / 9);
   position: fixed;
   top: 0;
   left: 0;
@@ -267,84 +274,112 @@ strong {
 }
 .nav-link {
   margin-bottom: var(--space-5);
-  position: relative;
-  padding-left: 5px;
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
-  background-color: var(--primary-soft);
-  z-index: -1;
-  transition: all 0.3s;
-  transform: scaleX(0);
-  transform-origin: center left;
-}
-.nav-link:hover::after {
-  transform: scaleX(100%);
-}
-.nav-link.active::after {
-  transform: scaleX(100%);
 }
 .nav-link a {
+  display: inline-block;
+  position: relative;
+  padding-bottom: var(--space-1);
   text-decoration: none;
   color: var(--text);
   font-size: var(--text-5xl);
   font-weight: var(--fw-700);
+  letter-spacing: var(--ls-tighter);
+  transition:
+    color 0.3s,
+    transform 0.3s;
+}
+.nav-link a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.nav-link a:hover,
+.nav-link a:focus-visible,
+.nav-link.active a {
+  color: var(--primary);
+  transform: translateX(var(--space-3));
+}
+.nav-link a:hover::after,
+.nav-link a:focus-visible::after,
+.nav-link.active a::after {
+  transform: scaleX(1);
 }
 
 .aside {
   background-color: var(--bg);
   height: 100%;
-  min-width: 35rem;
+  min-width: var(--aside-w);
   position: relative;
   z-index: 1;
 }
 .aside-content {
   position: fixed;
-  width: 35rem;
+  width: var(--aside-w);
   max-height: 100vh;
   padding: var(--space-12);
 }
 
 .aside-page-num {
   display: flex;
-  gap: 12px;
+  gap: var(--space-5);
   align-items: center;
   position: fixed;
   top: 15rem;
   left: 4rem;
   z-index: 2;
-  width: calc(35rem - var(--space-24));
+  width: calc(var(--aside-w) - var(--space-24));
   padding: 0 var(--space-8);
+  font-variant-numeric: tabular-nums;
 }
-
-.aside-curr-page,
-.aside-max-page {
-  font-weight: var(--fw-700);
-  font-size: var(--text-2xl);
+/* the counter sits on the dark sidebar; over the open (light) nav it
+   switches to the light tokens so it stays readable */
+.nav.opened ~ .aside-page-num {
+  --text: var(--ink);
+  --border: #d8cdc0;
+  --accent: var(--wine);
 }
-
 .aside-curr-page {
-  transition: all 0.3s;
-  color: var(--primary);
+  font-size: var(--text-4xl);
+  font-weight: var(--fw-800);
+  line-height: 1;
+  letter-spacing: var(--ls-tighter);
+  color: var(--accent);
   opacity: 0;
   transform: translateX(-20px);
+  transition:
+    opacity 0.3s,
+    transform 0.3s,
+    color 0.3s;
 }
 .aside-curr-page.visible {
   opacity: 1;
   transform: translateX(0);
 }
 .aside-max-page {
-  color: var(--text-muted);
+  font-size: var(--text-lg);
+  font-weight: var(--fw-600);
+  line-height: 1;
+  color: var(--text);
+  opacity: 0.55;
+  transition: color 0.3s;
 }
 .aside-sep {
-  width: 50%;
-  height: 2.7px;
-  background-color: var(--border);
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background-image: linear-gradient(
+    to right,
+    var(--accent),
+    var(--border)
+  );
 }
 .aside-text-box {
   margin: var(--space-48) 0 var(--space-14) 0;
