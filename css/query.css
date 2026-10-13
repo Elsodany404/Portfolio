@@ -1,0 +1,145 @@
+
+@media (max-width: 90em) {
+    .aside-content{
+        display: none;
+    }
+    .aside-page-num{
+        display: none;
+    }
+    .aside{
+        min-width: 10rem;
+    }
+    .main{
+        width: calc(100vw - 10rem);
+    }
+    .services-cards{
+        gap: var(--space-6);
+    }
+    .service-card{
+        padding: var(--space-8);
+    }
+}
+@media (max-width: 75em){
+
+    .section-hero{
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+    .hero-img-box{
+        order: -1;
+        width: 22rem;
+        height: 22rem;
+        margin: var(--space-14) auto 0;
+        border-radius: 50%;
+        border: 4px solid var(--surface);
+    }
+    .hero-text-box{
+        align-items: center;
+        text-align: center;
+        padding: var(--space-10) var(--space-12) var(--space-16);
+    }
+    .hero-description{
+        padding-left: 0;
+        border-left: none;
+    }
+    .hero-links-list{
+        justify-content: center;
+    }
+    .section-resume{
+        grid-template-columns: 1fr;
+    }
+    .resume-cover-letter{
+        max-width: none;   /* remove any max-limits */
+    }
+    .resume-cover-letter-img-box{
+        width: 30%;
+        margin: 0 auto;
+    }
+    .skill-row-1{
+        display: grid;
+        grid-template-columns: repeat(2 , 1fr);
+    }
+    .skill-row-2-box{
+        min-width: 25rem;
+    }
+    .skill{
+        align-items: start;
+        flex-flow: column-reverse;
+    }
+    .portfolio-gallary{
+        grid-template-columns: 1fr 1fr;
+    }
+    .section-contact{
+        gap: var(--space-10);
+    }
+    .resume-cover-letter-img {
+        transform: scale(2);
+    }
+}
+@media (max-width: 62.5em){
+    .main{
+        width: 100vw;
+    }
+    .layout{
+        grid-template-columns: 1fr;
+    }
+    .aside{
+        width: 100%;
+        height: 10rem;
+        position: fixed;
+    }
+    .section-hero{
+        padding-top: 10rem;
+    }
+    .section-portfolio{
+        grid-template-columns: repeat(2 , 1fr);
+    }
+    .section-contact{
+        grid-template-columns: 1fr ;
+    }
+    
+    /* .skill-row-2{
+        grid-template-columns: 1fr;
+    }  */
+    .skill-row-2-box{
+        margin: 0 auto;
+    }
+    .section-services{
+        grid-template-columns: 1fr;
+    }
+    .services-btn:first-child,.services-btn:last-child{
+        width: 100%;
+    }
+}
+@media (max-width: 38.75em){
+    .resume-experience-box-year,
+    .resume-experience-box-time-line{
+        display: none;
+    }
+    .grid-2-cols{
+        grid-template-columns: 1fr;
+    }
+    .skill-row-1{
+        grid-template-columns: 1fr;
+    }
+    .section-portfolio{
+        grid-template-columns: 1fr;
+    }
+    .contact-form{
+        padding: var(--space-8);
+    }
+    .hero-text-box{
+        padding: var(--space-8) var(--space-5) var(--space-14);
+    }
+    .hero-img-box{
+        width: 18rem;
+        height: 18rem;
+    }
+    .hero-description{
+        font-size: var(--text-xl);
+    }
+    .portfolio-gallary{
+        grid-template-columns: 1fr;
+    }
+    
+}

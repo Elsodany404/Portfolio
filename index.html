@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Mohamed Elsodany, full-stack web developer (Node.js, Next.js, TypeScript). Projects, experience, skills and contact."
+    />
+    <!-- <link rel="icon" href="">  32 * 32 -->
+    <!-- <link rel="apple-touch-icon" href=""> 180 * 180  -->
+    <!-- <link rel="manifest" href=""> 512 * 512 , 192 * 192 -->
+    <title>Mohamed Elsodany | Full-Stack Developer</title>
+    <!-- scripts -->
+    <script defer src="js/script.js"></script>
+    <!-- Icons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- css files -->
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/query.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <nav class="nav">
+        <ul class="nav-links">
+          <li class="nav-link"><a href="#hero">Home</a></li>
+          <li class="nav-link"><a href="#service">Service</a></li>
+          <li class="nav-link">
+            <a href="#portfolio">Portfolio</a>
+          </li>
+          <li class="nav-link"><a href="#resume">Resume</a></li>
+          <li class="nav-link"><a href="#skills">Skills</a></li>
+          <li class="nav-link"><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="aside-page-num">
+        <span class="aside-curr-page">01</span>
+        <span class="aside-sep"></span>
+        <span class="aside-max-page">06</span>
+      </div>
+      <aside class="aside">
+        <div class="aside-content">
+          <div class="aside-text-box">
+            <div class="aside-info">
+              <div class="aside-info-field">
+                <p class="aside-info-header">Name</p>
+                <p class="aside-info-body">Mohamed Elsodany</p>
+              </div>
+              <div class="aside-info-field">
+                <p class="aside-info-header">Role</p>
+                <p class="aside-info-body">Full-Stack Developer</p>
+              </div>
+              <div class="aside-info-field">
+                <p class="aside-info-header">Email</p>
+                <p class="aside-info-body">mouhmdsodany@outlook.com</p>
+              </div>
+              <div class="aside-info-field">
+                <p class="aside-info-header">Phone</p>
+                <p class="aside-info-body">(+20) 106 760 9291</p>
+              </div>
+            </div>
+          </div>
+          <div class="aside-img-box">
+            <img
+              class="aside-img"
+              src="images/signature.png"
+              alt="signature image"
+            />
+          </div>
+        </div>
+      </aside>
+      <main class="main">
+        <section class="section-hero grid-2-cols" id="hero" data-number="1">
+          <div class="hero-text-box">
+            <p class="hero-welcome">Hello. My name is</p>
+            <h1 class="hero-name">
+              <span class="hero-fName">Mohamed</span>
+              <span class="hero-lName">Elsodany</span>
+            </h1>
+            <p class="hero-description">
+              Full-stack developer building scalable, fast and user-focused web
+              applications with Node.js, Next.js and TypeScript.
+            </p>
+            <div class="hero-links">
+              <ul class="hero-links-list">
+                <li class="hero-link">
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/mohamed-elsodany"
+                    >linkedin</a
+                  >
+                </li>
+                <li class="hero-link">
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://github.com/Elsodany404"
+                    >github</a
+                  >
+                </li>
+                <li class="hero-link">
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.instagram.com/mo_sodany"
+                    >instagram</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="hero-img-box">
+            <img
+              class="hero-img"
+              src="images/personal-img.jpg"
+              alt="Portrait of Mohamed Elsodany, full-stack developer"
+            />
+          </div>
+        </section>
+        <section
+          class="section-services grid-2-cols container"
+          id="service"
+          data-number="2"
+        >
+          <div class="services-cards grid-2-cols">
+            <div class="service-card">
+              <ion-icon
+                class="service-card-icon"
+                name="cube-outline"
+              ></ion-icon>
+              <h3 class="service-card-header">Design</h3>
+              <p class="service-card-body">
+                Crafting clean, responsive interfaces with Next.js, Tailwind and
+                modern CSS that feel fast and easy to use on every screen.
+              </p>
+            </div>
+            <div class="service-card">
+              <ion-icon
+                class="service-card-icon"
+                name="logo-electron"
+              ></ion-icon>
+              <h3 class="service-card-header">Develop</h3>
+              <p class="service-card-body">
+                Building secure, scalable back ends and APIs with Node.js,
+                Express.js, MongoDB and PostgreSQL, including auth and payments.
+              </p>
+            </div>
+            <div class="service-card">
+              <ion-icon
+                class="service-card-icon"
+                name="git-branch-outline"
+              ></ion-icon>
+              <h3 class="service-card-header">Write</h3>
+              <p class="service-card-body">
+                Clean, typed and tested code with TypeScript and Vitest, organized
+                in clear architectures like MVC so it is easy to grow.
+              </p>
+            </div>
+            <div class="service-card">
+              <ion-icon
+                class="service-card-icon"
+                name="trending-up-outline"
+              ></ion-icon>
+              <h3 class="service-card-header">Promote</h3>
+              <p class="service-card-body">
+                SEO-friendly, performance-tuned applications so your product is
+                fast, discoverable and ready for real users.
+              </p>
+            </div>
+          </div>
+          <div class="services-text">
+            <h3 class="service-text-header">Services</h3>
+            <p class="services-what">
+              I build modern, full-stack web applications with
+              <strong
+                >Node.js, Express.js, Next.js, TypeScript, MongoDB and
+                PostgreSQL.</strong
+              >
+            </p>
+            <p class="services-how">
+              I turn ideas into production-ready applications, handling both the
+              back-end architecture and the front-end experience: from REST APIs
+              and databases to authentication, payments and polished UIs.
+            </p>
+            <p class="services-why">
+              Whether you need an e-commerce store, a booking platform or a
+              custom dashboard, I deliver maintainable, tested code with
+              responsive design and optimized performance.
+            </p>
+            <div class="services-btns">
+              <button class="services-btn mrg-bottom-6">Download CV</button>
+              <a class="services-btn" href="#portfolio">Check my portfolio</a>
+            </div>
+          </div>
+        </section>
+        <section
+          class="section-portfolio container"
+          id="portfolio"
+          data-number="3"
+        >
+          <h3 class="portfolio-header">Portfolio</h3>
+          <div class="portfolio-gallary grid-3-cols">
+            <a
+              class="portfolio-box"
+              href="https://natrous.onrender.com/overview"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="portfolio-description">
+                <p class="portfolio-description-header">Natours</p>
+                <p class="portfolio-description-feature">
+                  Express.js, MongoDB &amp; Mongoose, REST API, Stripe payments,
+                  Pug.js &amp; Sass &mdash; MVC architecture
+                </p>
+              </div>
+              <img
+                class="portfolio-overview"
+                src="images/natours-brand-card.png"
+                alt="Natours tour booking platform"
+              />
+            </a>
+            <a
+              class="portfolio-box"
+              href="https://qaf-16s2hakud-elsodany404s-projects.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="portfolio-description">
+                <p class="portfolio-description-header">QAF Coffee</p>
+                <p class="portfolio-description-feature">
+                  Next.js &amp; TypeScript, Better Auth, PostgreSQL with
+                  Supabase, Vitest &mdash; full e-commerce app
+                </p>
+              </div>
+              <img
+                class="portfolio-overview"
+                src="images/qaf-brand-card.png"
+                alt="QAF Coffee e-commerce app"
+              />
+            </a>
+            <a
+              class="portfolio-box"
+              href="https://elsodany404.github.io/omnifood/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="portfolio-description">
+                <p class="portfolio-description-header">Omnifood</p>
+                <p class="portfolio-description-feature">
+                  HTML &amp; modern CSS &mdash; responsive, SEO-optimized
+                  landing page
+                </p>
+              </div>
+              <img
+                class="portfolio-overview"
+                src="images/omnifood-brand-card.png"
+                alt="Omnifood landing page"
+              />
+            </a>
+          </div>
+        </section>
+        <section
+          class="section-resume grid-2-cols container"
+          id="resume"
+          data-number="4"
+        >
+          <div class="resume-experience">
+            <h3 class="resume-experience-header">Experience</h3>
+            <div class="resume-experience-box">
+              <span class="resume-experience-box-year">2025</span>
+              <div class="resume-experience-box-time-line">
+                <div class="time-line-circle"></div>
+                <div class="time-line-bar"></div>
+              </div>
+              <p class="resume-experience-box-paragraph">
+                <strong>Natours &mdash; Tour booking platform.</strong> Built a
+                full back-end with Node.js, Express.js, MongoDB and Mongoose
+                following the MVC architecture. Integrated Stripe payments for
+                secure tour bookings, rendered server-side views with Pug.js
+                and styled the interface with Sass.
+              </p>
+            </div>
+            <div class="resume-experience-box">
+              <span class="resume-experience-box-year">2026</span>
+              <div class="resume-experience-box-time-line">
+                <div class="time-line-circle"></div>
+                <div class="time-line-bar"></div>
+              </div>
+              <p class="resume-experience-box-paragraph">
+                <strong>QAF Coffee &mdash; Full e-commerce app.</strong>
+                Developed a complete coffee store with Next.js and TypeScript,
+                authentication with Better Auth, and a PostgreSQL database
+                hosted on Supabase. Covered the code with automated tests using
+                Vitest and built a responsive UI with modern CSS and Tailwind.
+              </p>
+            </div>
+            <div class="resume-experience-box">
+              <span class="resume-experience-box-year">2026</span>
+              <div class="resume-experience-box-time-line">
+                <div class="time-line-circle"></div>
+                <div class="time-line-bar"></div>
+              </div>
+              <p class="resume-experience-box-paragraph">
+                <strong>AI-assisted development.</strong> Fluent at working
+                with AI coding agents like Claude: using memory, subagents and
+                skills, and managing the context window well to ship features
+                faster without losing code quality.
+              </p>
+            </div>
+            <div class="resume-experience-box">
+              <span class="resume-experience-box-year">Now</span>
+              <div class="resume-experience-box-time-line">
+                <div class="time-line-circle"></div>
+                <div class="time-line-bar"></div>
+              </div>
+              <p class="resume-experience-box-paragraph">
+                <strong>Computer Science student.</strong> Studying at the
+                Faculty of Computer Science, with a solid foundation in data
+                structures and algorithms (DSA) and database design.
+              </p>
+            </div>
+          </div>
+          <div class="resume-cover-letter">
+            <h3 class="resume-cover-letter-header">Cover letter</h3>
+            <p class="resume-cover-letter-paragraph">
+              I&rsquo;m a full-stack web developer with one year of hands-on
+              experience building real, production-style applications.
+            </p>
+            <p class="resume-cover-letter-paragraph">
+              On the back end I work with Node.js, Express.js, MongoDB and
+              PostgreSQL, and I care about clean MVC structure, secure
+              authentication and reliable payment flows with Stripe.
+            </p>
+            <p class="resume-cover-letter-paragraph">
+              On the front end I build fast, responsive interfaces with Next.js,
+              TypeScript, Tailwind and modern CSS, and I back my work with
+              automated tests so it stays easy to change.
+            </p>
+            <p class="resume-cover-letter-paragraph">
+              As a Computer Science student I bring strong fundamentals in DSA
+              and databases, and I use AI agents effectively to move quickly
+              while keeping the code maintainable.
+            </p>
+            <div class="resume-cover-letter-img-box">
+              <img
+                class="resume-cover-letter-img"
+                src="images/signature.png"
+                alt="mohamed elsodany my signature"
+              />
+            </div>
+          </div>
+        </section>
+        <section class="section-skills container" id="skills" data-number="5">
+          <h3 class="skills-header">Skills</h3>
+          <div class="skill-row-1">
+            <div class="skill-row-1-box">
+              <div class="skill-circle">
+                <span class="progress-circle" data-percent="85">0%</span>
+              </div>
+              <p class="skill-title">Node.js</p>
+            </div>
+            <div class="skill-row-1-box">
+              <div class="skill-circle">
+                <span class="progress-circle" data-percent="80">0%</span>
+              </div>
+              <p class="skill-title">TypeScript</p>
+            </div>
+            <div class="skill-row-1-box">
+              <div class="skill-circle">
+                <span class="progress-circle" data-percent="75">0%</span>
+              </div>
+              <p class="skill-title">Next.js</p>
+            </div>
+            <div class="skill-row-1-box">
+              <div class="skill-circle">
+                <span class="progress-circle" data-percent="75">0%</span>
+              </div>
+              <p class="skill-title">Databases</p>
+            </div>
+          </div>
+          <div class="skill-row-2 grid-2-cols">
+            <div class="skill-row-2-box">
+              <div class="skill">
+                <div class="skill-bar"></div>
+                <span class="progress-bar" data-percent="85">0%</span>
+              </div>
+              <p class="skill-title">Tailwind &amp; CSS</p>
+            </div>
+            <div class="skill-row-2-box">
+              <div class="skill">
+                <div class="skill-bar"></div>
+                <span class="progress-bar" data-percent="70">0%</span>
+              </div>
+              <p class="skill-title">DSA</p>
+            </div>
+            <div class="skill-row-2-box">
+              <div class="skill">
+                <div class="skill-bar"></div>
+                <span class="progress-bar" data-percent="65">0%</span>
+              </div>
+              <p class="skill-title">Testing (Vitest)</p>
+            </div>
+            <div class="skill-row-2-box">
+              <div class="skill">
+                <div class="skill-bar"></div>
+                <span class="progress-bar" data-percent="90">0%</span>
+              </div>
+              <p class="skill-title">AI Agents (Claude)</p>
+            </div>
+          </div>
+        </section>
+        <section
+          class="section-contact grid-2-cols container"
+          id="contact"
+          data-number="6"
+        >
+          <div class="contact-text-box">
+            <h3 class="contact-header">Get in Touch</h3>
+            <p class="contact-paragraph">
+              Have a project in mind or a role you think I&rsquo;d be a good fit
+              for? I&rsquo;d love to hear about it.
+            </p>
+            <p class="contact-paragraph">
+              I&rsquo;m open to full-stack and front-end opportunities,
+              freelance work and collaborations on web applications.
+            </p>
+            <p class="contact-paragraph">
+              Send me a message with the form, or reach me directly by email or
+              phone. I usually reply within a day.
+            </p>
+            <div class="contact-info">
+              <p class="contact-info-paragraph">
+                <span>ADDRESS:</span> 10th of Ramadan City, Sharqia, Egypt
+              </p>
+              <p class="contact-info-paragraph">
+                <span>EMAIL:</span>
+                <a href="mailto:mouhmdsodany@outlook.com"
+                  >mouhmdsodany@outlook.com</a
+                >
+              </p>
+              <p class="contact-info-paragraph">
+                <span>PHONE:</span>
+                <a href="tel:+201067609291">(+20) 106 760 9291</a>
+              </p>
+            </div>
+          </div>
+          <form class="contact-form" novalidate>
+            <input
+              class="form-input"
+              type="text"
+              name="name"
+              placeholder="Name"
+              aria-label="Name"
+              id="name"
+              autocomplete="name"
+              required
+            />
+            <input
+              class="form-input"
+              type="email"
+              name="email"
+              placeholder="Email"
+              aria-label="Email"
+              id="email"
+              autocomplete="email"
+              required
+            />
+            <input
+              class="form-input"
+              type="text"
+              name="_subject"
+              placeholder="Subject"
+              aria-label="Subject"
+              id="subject"
+            />
+            <textarea
+              class="form-input"
+              id="message"
+              name="message"
+              rows="10"
+              cols="40"
+              placeholder="Message..."
+              aria-label="Message"
+              required
+            ></textarea>
+            <!-- spam trap: real users never fill this -->
+            <input
+              class="form-honey"
+              type="text"
+              name="_honey"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
+            <button class="contact-button" type="submit">Send</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
