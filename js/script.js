@@ -221,3 +221,27 @@ contactForm.addEventListener("submit", async (e) => {
     }
 });
 contactForm.addEventListener("input", (e) => e.target.classList.remove("invalid"));
+
+// Portfolio carousel dots (phones): one dot per card, the one most in view is active
+const portfolioGallery = document.querySelector(".portfolio-gallary");
+const portfolioDotsEl = document.querySelector(".portfolio-dots");
+const portfolioCards = [...portfolioGallery.querySelectorAll(".portfolio-box")];
+const portfolioDots = portfolioCards.map(() => {
+    const dot = document.createElement("span");
+    dot.className = "portfolio-dot";
+    portfolioDotsEl.append(dot);
+    return dot;
+});
+const setActiveDot = function (entries) {
+    entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const i = portfolioCards.indexOf(entry.target);
+        portfolioDots.forEach((dot, j) => dot.classList.toggle("active", i === j));
+    });
+};
+const portfolioObserver = new IntersectionObserver(setActiveDot, {
+    root: portfolioGallery,
+    threshold: 0.6,
+});
+portfolioCards.forEach((card) => portfolioObserver.observe(card));
+portfolioDots[0].classList.add("active");

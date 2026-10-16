@@ -194,7 +194,27 @@
 .portfolio-gallary {
   gap: var(--space-10);
 }
+/* swipe position dots, only shown with the phone carousel (query.css) */
+.portfolio-dots {
+  display: none;
+}
+.portfolio-dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: var(--border);
+  transition:
+    width 0.3s,
+    background-color 0.3s;
+}
+.portfolio-dot.active {
+  width: 2.4rem;
+  border-radius: 0.4rem;
+  background-color: var(--primary);
+}
 .portfolio-box {
+  color: inherit;
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -232,7 +252,9 @@
   padding-top: var(--space-24);
   padding-bottom: var(--space-24);
   gap: var(--space-12);
-  grid-template-columns: 3fr 2fr;
+  /* measured split: the timeline and the letter end at about the same
+     height from 1100px up, so the signature lines up with the last entry */
+  grid-template-columns: 11fr 9fr;
 }
 .resume-experience-header,
 .resume-cover-letter-header {
@@ -326,20 +348,28 @@
 .resume-experience-box:last-child p {
   margin-bottom: 0;
 }
+/* flex column so the signature (margin-top: auto) sits at the bottom and
+   ends level with the experience timeline beside it */
 .resume-cover-letter {
-  max-width: 38rem;
+  display: flex;
+  flex-direction: column;
 }
 .resume-cover-letter p:first-of-type {
   font-size: var(--text-3xl);
 }
+/* signed at the end of the letter, right-aligned. signature-cover.png is
+   trimmed to the ink (276px of it in the source), so 28rem is about its
+   natural size and it stays sharp */
 .resume-cover-letter-img-box {
   display: block;
-  width: min(100%, 32rem);
+  flex-shrink: 0;
+  width: min(75%, 28rem);
+  margin: auto 0 0 auto;
 }
 .resume-cover-letter-img {
-  object-fit: cover;
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 .section-skills {
   padding-top: var(--space-24);
@@ -485,6 +515,7 @@
   font-size: var(--text-2xl);
 }
 .contact-button {
+  font-family: inherit;
   background-color: transparent;
   border: none;
   padding: var(--space-8);

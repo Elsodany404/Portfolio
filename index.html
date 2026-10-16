@@ -7,9 +7,12 @@
       name="description"
       content="Mohamed Elsodany, full-stack web developer (Node.js, Next.js, TypeScript). Projects, experience, skills and contact."
     />
-    <!-- <link rel="icon" href="">  32 * 32 -->
-    <!-- <link rel="apple-touch-icon" href=""> 180 * 180  -->
-    <!-- <link rel="manifest" href=""> 512 * 512 , 192 * 192 -->
+    <!-- Favicons -->
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" href="images/favicon/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#8a4545" />
     <title>Mohamed Elsodany | Full-Stack Developer</title>
     <!-- scripts -->
     <script defer src="js/script.js"></script>
@@ -131,11 +134,42 @@
             </div>
           </div>
           <div class="hero-img-box">
-            <img
-              class="hero-img"
-              src="images/personal-img.jpg"
-              alt="Portrait of Mohamed Elsodany, full-stack developer"
-            />
+            <picture>
+              <!-- photo is hidden <= 1200px (query.css): serve an empty pixel there so it isn't downloaded -->
+              <source
+                media="(max-width: 75em)"
+                srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              />
+              <source
+                type="image/avif"
+                srcset="
+                  images/personal-img-640.avif 640w,
+                  images/personal-img-853.avif 853w
+                "
+                sizes="(max-width: 90em) 45vw, 40vw"
+              />
+              <source
+                type="image/webp"
+                srcset="
+                  images/personal-img-640.webp 640w,
+                  images/personal-img-853.webp 853w
+                "
+                sizes="(max-width: 90em) 45vw, 40vw"
+              />
+              <img
+                class="hero-img"
+                src="images/personal-img-853.jpg"
+                srcset="
+                  images/personal-img-640.jpg 640w,
+                  images/personal-img-853.jpg 853w
+                "
+                sizes="(max-width: 90em) 45vw, 40vw"
+                width="853"
+                height="1280"
+                fetchpriority="high"
+                alt="Portrait of Mohamed Elsodany, full-stack developer"
+              />
+            </picture>
           </div>
         </section>
         <section
@@ -284,6 +318,7 @@
               />
             </a>
           </div>
+          <div class="portfolio-dots" aria-hidden="true"></div>
         </section>
         <section
           class="section-resume grid-2-cols container"
@@ -370,8 +405,10 @@
             <div class="resume-cover-letter-img-box">
               <img
                 class="resume-cover-letter-img"
-                src="images/signature.png"
-                alt="mohamed elsodany my signature"
+                src="images/signature-cover.png"
+                width="280"
+                height="62"
+                alt="Mohamed Elsodany's signature"
               />
             </div>
           </div>

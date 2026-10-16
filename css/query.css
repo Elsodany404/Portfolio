@@ -2,8 +2,11 @@
   Breakpoints (desktop first)
   90em    1440px  small desktops: tighter type and spacing
   75em    1200px  laptops/tablets: sidebar collapses to a rail, hero photo hidden
-  62.5em  1000px  tablets: compact cards, 2-col portfolio
-  38.75em  620px  phones: smaller shapes, every grid stays 2 columns
+  62.5em  1000px  tablets: services and resume stack, 2-col portfolio, bigger text
+  50em     800px  small tablets: contact stacks
+  38.75em  620px  phones: rail becomes a top bar, single column, 10px root
+  project cards: hover overlay on desktop, caption under the image <= 1000px,
+                  thumbnail + caption rows on phones
 */
 
 /* ___________________________ <= 1440px ___________________________ */
@@ -52,8 +55,9 @@
 
 /* ___________________________ <= 1200px ___________________________ */
 @media (max-width: 75em) {
+  /* root stays at 9px: shrinking it further made every rem-sized
+     text and button too small on tablets */
   :root {
-    font-size: 50%; /* 8px */
     --rail-w: 9rem;
   }
 
@@ -167,7 +171,7 @@
   .resume-experience-box-time-line {
     margin-right: var(--space-8);
   }
-  /* 8px root makes text-2xl 12px; keep the long reading text at ~13px */
+  /* text-2xl is only 13.5px here; keep the long reading text at ~15px */
   .resume-experience-box-paragraph,
   .resume-cover-letter-paragraph {
     font-size: 1.65rem;
@@ -229,14 +233,19 @@
     padding-bottom: var(--space-16);
   }
 
+  /* cards get too narrow beside the text: stack them, text first so the
+     "Services" heading leads the section */
   .section-services {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .services-text {
+    order: -1;
   }
   .services-cards {
     gap: var(--space-5);
   }
   .service-card {
-    padding: var(--space-8) var(--space-6);
+    padding: var(--space-8) var(--space-7);
   }
   .service-card-icon {
     font-size: var(--text-6xl);
@@ -247,22 +256,40 @@
     margin-bottom: var(--space-3);
   }
   .service-card-body {
-    font-size: var(--text-xl);
-    line-height: var(--lh-xl);
+    font-size: 1.6rem;
+    line-height: var(--lh-4xs);
   }
   .service-text-header {
     font-size: var(--text-5xl);
     margin-bottom: var(--space-8);
   }
   .services-what {
-    font-size: var(--text-3xl);
+    font-size: 2.2rem;
+    line-height: var(--lh-4xs);
+  }
+  .services-how,
+  .services-why {
+    font-size: 1.7rem;
+    max-width: 70ch;
   }
   .services-why {
     margin-bottom: var(--space-10);
   }
+  .services-btns {
+    flex-direction: row;
+    gap: var(--space-5);
+    max-width: 64rem;
+    margin: 0 auto; /* centred under the full-width text */
+  }
+  .services-btns .mrg-bottom-6 {
+    margin-bottom: 0;
+  }
   .services-btn {
-    height: 5rem;
-    font-size: var(--text-xl);
+    flex: 1;
+    height: 5.2rem;
+    padding: 0 var(--space-5);
+    font-size: 1.4rem;
+    text-align: center;
   }
 
   .portfolio-header {
@@ -272,15 +299,6 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--space-6);
   }
-  .portfolio-description {
-    padding: var(--space-6);
-  }
-  .portfolio-description-header {
-    font-size: var(--text-3xl);
-  }
-  .portfolio-description-feature {
-    font-size: var(--text-xl);
-  }
 
   .resume-experience-header,
   .resume-cover-letter-header,
@@ -288,9 +306,23 @@
   .contact-header {
     margin-bottom: var(--space-10);
   }
-  /* the timeline needs less width now, so split the section evenly */
+  /* side by side, the timeline runs ~250px longer than the letter here,
+     leaving the signature stranded: stack them, each at a readable width */
   .section-resume {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-14);
+  }
+  .resume-experience {
+    max-width: 76rem;
+  }
+  /* the letter is centred in the section, signature included */
+  .resume-cover-letter {
+    max-width: 68rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .resume-cover-letter-img-box {
+    margin: var(--space-4) auto 0;
   }
   /* the year moves above its paragraph as a small label, so the text
      gets the full width beside the line */
@@ -353,139 +385,236 @@
     font-size: var(--text-4xl);
   }
 
+  .contact-paragraph:first-of-type {
+    font-size: 2rem;
+  }
+  .contact-paragraph {
+    font-size: 1.6rem;
+  }
+  .contact-info {
+    font-size: 1.5rem;
+  }
   .contact-form {
     padding: var(--space-10) var(--space-8);
+  }
+  /* 16px+ inputs: iOS zooms the page on focus below that */
+  .form-input,
+  .form-input::placeholder {
+    font-size: 1.8rem;
   }
   .form-input {
     margin-bottom: var(--space-10);
   }
 }
 
+/* ___________________________ <= 800px ___________________________ */
+@media (max-width: 50em) {
+  /* two text columns are too narrow to read here: stack them
+     (resume already stacks at 1000px) */
+  .section-contact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-14);
+  }
+  .contact-paragraph:last-of-type {
+    margin-bottom: var(--space-10);
+  }
+}
+
 /* ___________________________ <= 620px ___________________________ */
 @media (max-width: 38.75em) {
+  /* Back to a 10px root: phones need bigger type than tablets, not smaller */
   :root {
-    --rail-w: 5.6rem;
+    font-size: 62.5%;
+    --bar-h: 5.6rem;
+    --gutter: 2.4rem;
+    scroll-padding-top: var(--bar-h); /* nav jumps land below the bar */
+  }
+
+  /* The side rail becomes a fixed top bar: menu button on the left,
+     page counter on the right, and the content gets the full width */
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--bar-h);
+    box-shadow: 0 1px 0 var(--border);
+  }
+  .main {
+    padding-top: var(--bar-h);
   }
   .nav-button {
     width: 24px;
-    height: 24px;
-    top: 3rem;
-    left: calc((var(--rail-w) - 24px) / 2);
+    height: 18px;
+    top: calc((var(--bar-h) - 18px) / 2);
+    left: var(--gutter);
   }
   .nav-button span {
     height: 3px;
     margin-bottom: 4.5px;
   }
   .nav {
-    width: calc(var(--rail-w) + 26rem);
-    padding: var(--space-10) var(--space-6) var(--space-10)
-      calc(var(--rail-w) + var(--space-5));
+    width: 100%;
+    padding: calc(var(--bar-h) + var(--space-10)) var(--gutter)
+      var(--space-10);
   }
   .nav-links {
-    margin-top: var(--space-28);
+    margin-top: 0;
+  }
+  .nav-link {
+    margin-bottom: var(--space-6);
   }
   .nav-link a {
-    font-size: var(--text-4xl);
+    font-size: 3.2rem;
   }
   .aside-page-num {
-    top: 11rem;
-    gap: var(--space-3);
+    flex-direction: row;
+    top: 0;
+    left: auto;
+    right: var(--gutter);
+    width: auto;
+    height: var(--bar-h);
+    gap: var(--space-4);
   }
   .aside-curr-page {
-    font-size: var(--text-2xl);
+    font-size: 2rem;
   }
   .aside-max-page {
-    font-size: var(--text-base);
+    font-size: 1.3rem;
   }
   .aside-sep {
-    height: 4rem;
+    width: 3.2rem;
+    height: 2px;
+    background-image: linear-gradient(
+      to right,
+      var(--accent),
+      var(--border)
+    );
   }
 
-  /* phones: floor the hero text at readable sizes (13-14px body) */
-  .hero-text-box {
-    padding: var(--space-12) 8%;
+  .container {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
   }
-  .hero-welcome {
-    font-size: 1.4rem;
-    letter-spacing: var(--ls-wide-4);
+  .section-services,
+  .section-portfolio,
+  .section-resume,
+  .section-skills,
+  .section-contact {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
   }
-  .hero-name {
-    font-size: 14cqi;
-  }
-  .hero-description {
-    font-size: 1.75rem;
-  }
-  .hero-links-list {
-    font-size: 1.3rem;
-    gap: var(--space-5) var(--space-8);
-  }
-
-  /* Side-by-side text panels get too narrow to read here, so each panel
-     takes the full row while the grids inside them keep two columns */
-  .section-services > *,
-  .section-resume > *,
-  .section-contact > * {
-    grid-column: 1 / -1;
-  }
-
-  .services-cards {
-    gap: var(--space-4);
-  }
-  .service-card {
-    padding: var(--space-6) var(--space-5);
-  }
-  .service-card-icon {
-    font-size: var(--text-5xl);
-  }
-  .service-card-header {
-    font-size: var(--text-2xl);
-  }
-  .service-card-body {
-    font-size: var(--text-lg);
-  }
-  .services-what {
-    font-size: var(--text-2xl);
-  }
-  .services-how,
-  .services-why {
-    font-size: var(--text-xl);
-  }
-  .services-btns {
-    flex-direction: row;
-    gap: var(--space-4);
-  }
-  .services-btn {
-    flex: 1;
-    height: 4.8rem;
-    padding: 0 var(--space-4);
-    font-size: var(--text-base);
-    text-align: center;
-    border-width: 2px;
-  }
-  .services-btns .mrg-bottom-6 {
-    margin-bottom: 0;
-  }
-
-  .portfolio-gallary {
-    gap: var(--space-4);
-  }
-  .portfolio-description {
-    padding: var(--space-4);
-  }
-  .portfolio-description-header {
-    font-size: var(--text-xl);
-  }
-  .portfolio-description-feature {
-    font-size: var(--text-sm);
-  }
-
   .resume-experience-header,
   .resume-cover-letter-header,
   .skills-header,
   .contact-header,
   .service-text-header,
   .portfolio-header {
-    font-size: var(--text-4xl);
+    font-size: 2.8rem;
+    margin-bottom: var(--space-7);
+  }
+
+  /* Hero */
+  .section-hero {
+    min-height: calc(100svh - var(--bar-h));
+  }
+  .hero-text-box {
+    padding: var(--space-12) var(--gutter);
+  }
+  .hero-welcome {
+    font-size: 1.3rem;
+    letter-spacing: var(--ls-wide-4);
+    margin-bottom: var(--space-4);
+  }
+  .hero-name {
+    font-size: 15cqi;
+  }
+  .hero-description {
+    font-size: 1.6rem;
+    line-height: var(--lh-4xs);
+    margin-bottom: var(--space-8);
+  }
+  .hero-links-list {
+    font-size: 1.3rem;
+    gap: var(--space-3) var(--space-8);
+  }
+  .hero-link a {
+    display: inline-block;
+    padding: var(--space-4) 0; /* taller tap target */
+  }
+  .hero-link a::after {
+    bottom: var(--space-3);
+  }
+
+  /* Services: one card per row, icon beside the text */
+  .section-services {
+    gap: var(--space-10);
+  }
+  .services-what {
+    font-size: 1.8rem;
+    line-height: var(--lh-xl);
+    margin-bottom: var(--space-6);
+  }
+  .services-how,
+  .services-why {
+    font-size: 1.5rem;
+    line-height: var(--lh-4xs);
+  }
+  .services-how {
+    margin-bottom: var(--space-6);
+  }
+  .services-why {
+    margin-bottom: var(--space-8);
+  }
+  .services-btns {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .services-btn {
+    flex: none;
+    height: 4.8rem;
+    font-size: 1.3rem;
+    border-width: 2px;
+  }
+  .services-cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+  .service-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--space-5);
+    align-items: start;
+    padding: var(--space-7) var(--space-6);
+  }
+  .service-card-icon {
+    grid-row: span 2;
+    font-size: 3.2rem;
+    margin-bottom: 0;
+  }
+  .service-card-header {
+    font-size: 1.8rem;
+    line-height: var(--lh-2xl);
+    margin-bottom: var(--space-2);
+  }
+  .service-card-body {
+    font-size: 1.4rem;
+    line-height: var(--lh-3xs);
+  }
+
+  /* Portfolio: one project per row */
+  .portfolio-gallary {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+  /* caption styles: see the project cards blocks at the end */
+
+  /* Resume */
+  .section-resume {
+    gap: var(--space-12);
   }
   .resume-experience {
     --dot: 2.2rem;
@@ -493,37 +622,54 @@
   .resume-experience-box {
     column-gap: var(--space-5);
   }
-  /* ~14px reading text on phones */
+  .resume-experience-box-year {
+    font-size: 1.3rem;
+  }
   .resume-experience-box-paragraph,
   .resume-cover-letter-paragraph {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
+    line-height: var(--lh-4xs);
+    margin-bottom: var(--space-7);
   }
   .resume-cover-letter p:first-of-type {
-    font-size: 1.9rem;
+    font-size: 1.7rem;
+    line-height: var(--lh-sm);
+  }
+  /* phones: back to a left-aligned letter, signed on the right */
+  .resume-cover-letter {
+    margin: 0;
+    text-align: left;
   }
   .resume-cover-letter-img-box {
-    width: min(70%, 26rem);
+    width: min(70%, 24rem);
+    margin: var(--space-4) 0 0 auto;
   }
 
+  /* Skills */
   .skill-row-1 {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0 var(--space-5);
+  }
+  .skill-row-1-box {
+    margin-bottom: var(--space-8);
   }
   .skill-circle,
   .skill-circle::before {
-    width: 8rem;
-    height: 8rem;
+    width: 9rem;
+    height: 9rem;
   }
   .skill-circle {
     padding: 1.4rem;
+    margin-bottom: var(--space-4);
   }
   .progress-circle {
-    font-size: var(--text-3xl);
+    font-size: 2rem;
   }
   .skill-title {
-    font-size: var(--text-xl);
+    font-size: 1.4rem;
   }
   .skill-row-2 {
-    gap: var(--space-8) var(--space-6);
+    gap: var(--space-7) var(--space-6);
   }
   .skill {
     flex-direction: column-reverse;
@@ -535,35 +681,137 @@
     margin-bottom: var(--space-3);
   }
   .progress-bar {
-    font-size: var(--text-3xl);
+    font-size: 2rem;
   }
 
+  /* Contact */
+  .section-contact {
+    gap: var(--space-10);
+  }
   .contact-paragraph:first-of-type {
-    font-size: var(--text-2xl);
+    font-size: 1.8rem;
+    line-height: var(--lh-xl);
   }
   .contact-paragraph {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-6);
+    font-size: 1.5rem;
+    margin-bottom: var(--space-5);
   }
   .contact-paragraph:last-of-type {
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-8);
   }
   .contact-info {
-    font-size: var(--text-lg);
+    font-size: 1.4rem;
     overflow-wrap: anywhere;
   }
+  .contact-info-paragraph {
+    margin-bottom: var(--space-3);
+  }
   .contact-form {
-    padding: var(--space-8) var(--space-6);
+    padding: var(--space-7) var(--space-6);
   }
   .form-input,
   .form-input::placeholder {
-    font-size: var(--text-xl);
+    font-size: 1.6rem;
   }
   .form-input {
+    padding: var(--space-4) var(--space-2);
     border-bottom-width: 2px;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-7);
+  }
+  textarea.form-input {
+    height: 16rem;
+    resize: vertical;
   }
   .contact-button {
     padding: var(--space-5);
+    font-size: 1.4rem;
+  }
+  .form-status {
+    font-size: 1.4rem;
+  }
+}
+
+/* ___________________________ <= 1000px: project cards ___________________________ */
+/* Tablets and phones: the caption sits under the image instead of the
+   desktop hover overlay (touch screens can't hover). Kept after the phone
+   block so it overrides the base card styles at every small width. */
+@media (max-width: 62.5em) {
+  .portfolio-box {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+  .portfolio-overview {
+    display: block;
+    order: -1;
+  }
+  .portfolio-description {
+    position: static;
+    flex: 1; /* captions in a row end level */
+    justify-content: flex-start;
+    gap: var(--space-3);
+    transform: none;
+    height: auto;
+    padding: var(--space-7) var(--space-7) var(--space-8);
+    /* a raised dark card instead of the pink overlay block: calmer next to
+       the images and easier to read */
+    background-color: var(--surface);
+    color: var(--text-muted);
+    border-top: 3px solid var(--primary);
+  }
+  .portfolio-description-header {
+    font-size: 2.2rem;
+    font-weight: var(--fw-700);
+    line-height: var(--lh-2xl);
+    letter-spacing: var(--ls-tight);
+    color: var(--primary);
+  }
+  .portfolio-description-feature {
+    font-size: 1.5rem;
+    font-weight: var(--fw-400);
+    line-height: var(--lh-4xs);
+  }
+}
+/* Phones: one project per row made the images huge, so the cards become
+   a swipe carousel: each ~80% wide with the next one peeking in, the full
+   (uncropped) image on top and the caption below */
+@media (max-width: 38.75em) {
+  .portfolio-gallary {
+    display: flex;
+    gap: var(--space-5);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    /* run edge to edge so cards slide out under the screen edge, while
+       snapping still lines each card up with the page gutter */
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter);
+    scroll-padding: 0 var(--gutter);
+  }
+  .portfolio-gallary::-webkit-scrollbar {
+    display: none;
+  }
+  .portfolio-box {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+  }
+  .portfolio-description {
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-6) var(--space-6);
+  }
+  .portfolio-description-header {
+    font-size: 1.8rem;
+  }
+  .portfolio-description-feature {
+    font-size: 1.4rem;
+    line-height: var(--lh-sm);
+  }
+  .portfolio-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
   }
 }
