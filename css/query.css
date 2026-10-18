@@ -460,12 +460,27 @@
     width: 100%;
     padding: calc(var(--bar-h) + var(--space-10)) var(--gutter)
       var(--space-10);
+    justify-content: center;
+    align-items: center;
   }
   .nav-links {
     margin-top: 0;
+    text-align: center;
+  }
+  /* centred links grow their underline from the middle instead of sliding */
+  .nav-link a::after {
+    transform-origin: center;
+  }
+  .nav-link a:hover,
+  .nav-link a:focus-visible,
+  .nav-link.active a {
+    transform: none;
   }
   .nav-link {
     margin-bottom: var(--space-6);
+  }
+  .nav-link:last-child {
+    margin-bottom: 0;
   }
   .nav-link a {
     font-size: 3.2rem;
